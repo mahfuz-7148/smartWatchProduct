@@ -107,10 +107,37 @@ document.getElementById("add-to-cart").addEventListener('click', () => {
   }
 })
 
-document.getElementById("checkout-btn").addEventListener('click', function () {
+document.getElementById("checkout-btn").addEventListener("click", function () {
   const cartModal = document.getElementById("cart-modal");
-  const cartItems = document.getElementById("cart-items");
+
+  const cartConatainer = document.getElementById("cart-items");
+
   for (const cartItem of cartItems) {
-    console.log(cartItem)
+    const tableRow = document.createElement("tr");
+    tableRow.classList.add("border-b");
+    tableRow.innerHTML = `
+    <td class="py-2 px-4">
+      <div class="flex items-center space-x-2">
+        <img class="h-12 w-12 object-cover rounded-md" src="${productImageBase}${cartItem.image}" alt="">
+        <span class="font-semibold">${cartItem.title}</span>
+      </div>
+    </td>
+    <td class="py-2 px-4">${cartItem.color}</td>
+    <td class="py-2 px-4">${cartItem.size}</td>
+    <td class="py-2 px-4">${cartItem.quantity}</td>
+    <td class="py-2 px-4">$${cartItem.price}</td>
+    `;
+    cartConatainer.appendChild(tableRow);
   }
-})
+
+  cartModal.classList.remove("hidden");
+});
+
+document
+  .getElementById("continue-shopping")
+  .addEventListener("click", function () {
+    document.getElementById("cart-modal").classList.add("hidden");
+  });
+document.getElementById("checkOut").addEventListener("click", function () {
+  window.alert('Checking your product')
+});
